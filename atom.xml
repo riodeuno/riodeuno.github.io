@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
-  <link href="http://riodeuno.github.io/atom.xml" rel="self"/>
-  <link href="http://riodeuno.github.io/"/>
-  <updated>2014-04-03T17:30:57+05:30</updated>
-  <id>http://riodeuno.github.io/</id>
-  <author>
-    <name><![CDATA[Abhinav Jha]]></name>
-    
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+	<title><![CDATA[Unknown programmer]]></title>
+	<link href="http://riodeuno.github.io/atom.xml" rel="self"/>
+	<link href="http://riodeuno.github.io/"/>
+	<updated>2014-04-03T21:33:53+05:30</updated>
+	<id>http://riodeuno.github.io/</id>
+	<author>
+		<name><![CDATA[Abhinav Jha]]></name>
+		<email><![CDATA[abhinavjha.r@gmail.com]]></email>
+	</author>
+	<generator uri="http://octopress.org/">Octopress</generator>
 
-  
+	
 </feed>
