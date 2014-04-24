@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: 
+
+Sitemap: http://riodeuno.github.io/sitemap.xml 
