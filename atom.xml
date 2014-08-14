@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Unknown Programmer]]></title>
+  <link href="http://unknownprogrammer.com/atom.xml" rel="self"/>
+  <link href="http://unknownprogrammer.com/"/>
+  <updated>2014-08-14T17:00:29+05:30</updated>
+  <id>http://unknownprogrammer.com/</id>
+  <author>
+    <name><![CDATA[Abhinav Jha]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Restless]]></title>
+    <link href="http://unknownprogrammer.com/blog/2014/08/14/restless/"/>
+    <updated>2014-08-14T16:08:04+05:30</updated>
+    <id>http://unknownprogrammer.com/blog/2014/08/14/restless</id>
+    <content type="html"><![CDATA[<p>I am not resting well</p>
+
+<p>Creating a website which includes some of the latest client side frameworks AND making it REST-ful does not come easily, to me. I attempt and cheat and cheat some more to make it just REST-ful enough. The fact that it is not a protocol, has helped me keep my conscience after all that cheating. However, I am not resting well.</p>
+
+<p>It all started when I learned about <a href="http://facebook.github.io/react/">ReactJS</a> last year. I was sure that I would be using this nice and fast framework from the creators of Facebook and Instagram in my next project.
+That is exactly what I did.</p>
+
+<p>My simple project had a <a href="http://www.slimframework.com/">Slim Framework</a> powered PHP REST API service. <a href="http://foundation.zurb.com/">Zurb&rsquo;s Foundation</a> for the UI theming/controls (using SASS) and of course, ReactJS.</p>
+
+<p>In my ideal world, the API would be completely REST-ful and the client would work at 60fps on any smartphone, and I would have free beer for life.
+To find my way to this ideal world, I start off by making a few routes which are resources with nouns, for example:</p>
+
+<p><code>http://localhost/MI9Base/ejectpads</code></p>
+
+<p><code>http://localhost/MI9Base/ejectpads/:id</code></p>
+
+<p><code>http://localhost/MI9Base/agents</code></p>
+
+<p>See? No verbs.
+These, for now, spit out a JSON formatted representation of the resource. These, of course, have the standard PUT, POST, DELETE, GET (HTTP requests) way for updating, creating, deleting and getting the resources.</p>
+
+<p>Alright, lets get to the client-side of things.</p>
+
+<p>Fire up a new Foundation project.
+Add React to bower</p>
+
+<p>Have the <a href="http://localhost/MI9Base/">http://localhost/MI9Base/</a> load up the homepage (HTML), with the CSS, JS included.</p>
+
+<p>Viewing it in the browser, the homepage loads up. Some of the React components on the homepage request the JSON formatted resources from the server to display.</p>
+
+<p>So far so good.</p>
+
+<p>I need another page for SEO reasons, another URL which can be navigated directly.
+Lets call that <a href="http://localhost/MI9Base/gadgets.">http://localhost/MI9Base/gadgets.</a> Here&rsquo;s the tricky part, this URL is also for a resource. So, when I fire up this url in the browser, I get the JSON content displayed (No authenticated resource requests yet). No HTML.</p>
+
+<p>I think about it for a few minutes, go fishing in my fridge, grab a yoghurt, chat with a friend, come back to my workstation and load the URL again. Yep, still no HTML.</p>
+
+<p>The first solution that comes to mind is to have different <code>ContentType</code> in the resource requests. If I request a <code>applicaiton/json</code>, the server send back data in JSON, otherwise, it throws another HTML at me, which also has similar JS, CSS as in the homepage.</p>
+
+<p>I find this to be stupid. The server keeps sending the same JS and CSS for each page (There are minor differences in JS for the different React components on different pages). It was stupid, I&rsquo;m almost certain.</p>
+
+<p>I google around for React JS based applications and their implementations, open some of the search results in new tabs, find a link on reddit, click on it. It is about <a href="http://www.rust-lang.org/">Rust</a>.</p>
+
+<p>Fast forward two hours later, I close the tab which has the wikipedia entry for paella. I can&rsquo;t remember how I got to this page. I can&rsquo;t remember what I was searching for, on google. Lets not dwell in the past, anterograde amnesia isn&rsquo;t cool, although Guy Pearce, in memento, had it. I go back to code editor to retrace my steps. Back on track.</p>
+
+<p>&ldquo;I need a client side router, I wonder if that&rsquo;ll help&rdquo;, I think. Add Backbone to Bower and figure out how to use it with React. One google search later, I have it up and running.</p>
+
+<p>Now, I have all components loaded at the root url load, and the client side router redirects appropriately. Remove the conditional <code>ContentType</code> checks on the server, and have it send resource data in JSON only.</p>
+
+<p>Backbone now works only with the &ldquo;<a href="http://localhost/MI9Base/#/gadgets">http://localhost/MI9Base/#/gadgets</a>&rdquo; hashbang urls. Add pushState to the router, and it removes the hash. It still needs the anchor links and request URLs to be of the hashbang format, but once the Backbone router does its job, the URL is changed to the standard one. So, a refresh on the routed page gives me a 404.</p>
+
+<p>This wont do. I have to load the correct page without the hash.</p>
+
+<p>After lunch, I log back into my workstation. Refresh the page, gives me a 404.</p>
+
+<p>This wont do. I have to load the correct page without the hash. Deja vu?</p>
+
+<p>Another cheat comes to mind, how bad is it? I don&rsquo;t know, I decide to implement it anyway.</p>
+
+<p>Now, all direct requests (without the # in the URL) are sent to the server, the server redirects to the hashbang URL, which the backbone router understands and once again redirects to the correct page. Only if the server gets a <code>ContentType</code> of <code>application/json</code>, it sends the JSON data. Otherwise, redirect and let Backbone handle it.</p>
+
+<p>Two redirects to open one URL? Granted one of them was done on the client, and must have been a lot faster.</p>
+
+<p>I don&rsquo;t know if this is a good way to do things. I think I have cheated multiple times in the process.</p>
+
+<p>I feel dirty. I am not resting well.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Hello World]]></title>
+    <link href="http://unknownprogrammer.com/blog/2014/04/24/hello-world/"/>
+    <updated>2014-04-24T06:51:00+05:30</updated>
+    <id>http://unknownprogrammer.com/blog/2014/04/24/hello-world</id>
+    <content type="html"><![CDATA[<h1>Equae corpore flumine nemorum</h1>
+
+<h2>Quoque cum Ortygiam adest coniugii ferarum natus</h2>
+
+<p>Lorem markdownum dederat adire, <strong>regni</strong> et una coetusque manus tenuisse. Per
+quid festis et parente aut nubes et cecidere surgere nisi qua det. Stolidas de
+memento et nymphas passam cuncta. Illi cursu circumstant hosne sollicitumque
+metum; bis tui sim quis.</p>
+
+<ol>
+<li>Siste et levat convexi crines</li>
+<li>Ulva murum</li>
+<li>Tamen exanimi</li>
+<li>Vindice et edentem</li>
+<li>Iove quo est nobis</li>
+<li>Caput suspicere sonos mollitaque in lapides habitanda</li>
+</ol>
+
+
+<p>Solum poena divum veros, pervia cepi detinuit edo illuc actaque in teneri et et.
+Foedera huius latitantem ad nec invisamque nubes iura aut motatque tepidi! Per
+sacra iam aeterna sociis, et carpere latus languentique eandem agna lacrimans
+adsueta gestumque tergo agitatis concipit. Notis mihi hanc propiore quattuor,
+huic et imis. Sed fati aequoris, ira potest sunt, tumulo lucis.</p>
+
+<pre><code>    if (fiosWormCaps) {
+        down += tokenToslink(web);
+        bashLpi = scroll_infringement_qwerty;
+    }
+    ftp_wordart_multimedia(spreadsheet_compact, microcomputer + symbolic, isa(right));
+    default /= e_parse_tiger + 1 / rdf.gif(daemonSsid);
+    ipText(8, microcomputer_index_power, file - num);
+    hotDiskCtp(reciprocal_cursor + exabyte);
+</code></pre>
+
+<h2>Sic nec felicia lumine</h2>
+
+<p>Superi falcis vires iugalibus per futuri Thybris, Iove retro ducebat adfuit
+tetigisse raptae? Pinu amorem. Lucus quid tamen mirabile cruentis circumvelatur
+tantum respiceret vidit <a href="http://heeeeeeeey.com/">turba tyranni premit</a>. Retinere
+dapibus ad ipse terrenae defendite salutet Aiax, adspice Thescelus et leves
+cupit. Contemptuque potuit Hippotadae <strong>inguine torum</strong>; ramos geniti puerilibus
+nocens.</p>
+
+<p>Est per forsitan stabunt reserato in repperit dubita. Sum per limine veniat,
+quamvis pro quae <a href="http://heeeeeeeey.com/">armorum</a> madefactam utinam spectantem,
+leto, aliis erat tuti. Mensura <strong>nisi</strong> ille nunc
+<a href="http://kimjongunlookingatthings.tumblr.com/">trepidare</a> convicia pectore et
+licuit et dolor ultro magis, rapiunt non somno. Fide <em>faciemque</em> cannis,
+quemquam <em>et</em> gloria Thespiades repulsa utque.</p>
+
+<p>Ex et gaudet nate pro, poteris est illic telum; undis nec occupet cepit.
+Tristitiam passa triplici prodidit sororia secutum offensa. Hoc vasti conprecor
+atque, Thebae Fama, ventis est saepe haesurum despexitque onus.</p>
+
+<p>Dederant comae per est praestantes Aetne aquae ferre conscendit cumque sidereum.
+Omnes captaeque credo!</p>
+]]></content>
+  </entry>
+  
+</feed>

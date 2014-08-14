@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Restless - Unknown Programmer</title>
+  <meta name="author" content="Abhinav Jha">
+
+  
+  <meta name="description" content="I am not resting well Creating a website which includes some of the latest client side frameworks AND making it REST-ful does not come easily, to me &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://unknownprogrammer.com/blog/2014/08/14/restless">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Unknown Programmer" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href='http://fonts.googleapis.com/css?family=Quattrocento+Sans|Roboto:400,300' rel='stylesheet' type='text/css'>
+
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<aside class="left">
+			<div class="inner-left">
+				<header>
+					
+  <img src="http://www.gravatar.com/avatar/707f9d703660573cd0683ba7a242d8e1?s=200" alt="Gravatar of Abhinav Jha " title="Gravatar of Abhinav Jha" class="profilepic" />
+
+<hgroup>
+  <h1><a href="/">Unknown Programmer</a></h1>
+  
+  <!--<h2 class="subtitle">Yet another blog by yet another unknown programmer</h2>-->
+   
+</hgroup>
+
+
+				</header>
+				<footer>
+					<p>
+	
+		<a href="http://github.com/riodeuno" class="btn btn-dark">GitHub</a>
+	
+	
+		<a href="http://twitter.com/AbhinavRJha" class="btn btn-dark">Twitter</a>
+	
+</p>
+				</footer>
+			</div>
+		</aside>
+    	<section class="right">
+    		<div class="inner-right">
+    			<div id="posts">
+    			  	<article class="post">
+    
+  <header>
+    
+      <h1 class="entry-title">Restless</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-14T16:08:04+05:30" pubdate data-updated="true">Aug 14<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I am not resting well</p>
+
+<p>Creating a website which includes some of the latest client side frameworks AND making it REST-ful does not come easily, to me. I attempt and cheat and cheat some more to make it just REST-ful enough. The fact that it is not a protocol, has helped me keep my conscience after all that cheating. However, I am not resting well.</p>
+
+<p>It all started when I learned about <a href="http://facebook.github.io/react/">ReactJS</a> last year. I was sure that I would be using this nice and fast framework from the creators of Facebook and Instagram in my next project.
+That is exactly what I did.</p>
+
+<p>My simple project had a <a href="http://www.slimframework.com/">Slim Framework</a> powered PHP REST API service. <a href="http://foundation.zurb.com/">Zurb&rsquo;s Foundation</a> for the UI theming/controls (using SASS) and of course, ReactJS.</p>
+
+<p>In my ideal world, the API would be completely REST-ful and the client would work at 60fps on any smartphone, and I would have free beer for life.
+To find my way to this ideal world, I start off by making a few routes which are resources with nouns, for example:</p>
+
+<p><code>http://localhost/MI9Base/ejectpads</code></p>
+
+<p><code>http://localhost/MI9Base/ejectpads/:id</code></p>
+
+<p><code>http://localhost/MI9Base/agents</code></p>
+
+<p>See? No verbs.
+These, for now, spit out a JSON formatted representation of the resource. These, of course, have the standard PUT, POST, DELETE, GET (HTTP requests) way for updating, creating, deleting and getting the resources.</p>
+
+<p>Alright, lets get to the client-side of things.</p>
+
+<p>Fire up a new Foundation project.
+Add React to bower</p>
+
+<p>Have the <a href="http://localhost/MI9Base/">http://localhost/MI9Base/</a> load up the homepage (HTML), with the CSS, JS included.</p>
+
+<p>Viewing it in the browser, the homepage loads up. Some of the React components on the homepage request the JSON formatted resources from the server to display.</p>
+
+<p>So far so good.</p>
+
+<p>I need another page for SEO reasons, another URL which can be navigated directly.
+Lets call that <a href="http://localhost/MI9Base/gadgets.">http://localhost/MI9Base/gadgets.</a> Here&rsquo;s the tricky part, this URL is also for a resource. So, when I fire up this url in the browser, I get the JSON content displayed (No authenticated resource requests yet). No HTML.</p>
+
+<p>I think about it for a few minutes, go fishing in my fridge, grab a yoghurt, chat with a friend, come back to my workstation and load the URL again. Yep, still no HTML.</p>
+
+<p>The first solution that comes to mind is to have different <code>ContentType</code> in the resource requests. If I request a <code>applicaiton/json</code>, the server send back data in JSON, otherwise, it throws another HTML at me, which also has similar JS, CSS as in the homepage.</p>
+
+<p>I find this to be stupid. The server keeps sending the same JS and CSS for each page (There are minor differences in JS for the different React components on different pages). It was stupid, I&rsquo;m almost certain.</p>
+
+<p>I google around for React JS based applications and their implementations, open some of the search results in new tabs, find a link on reddit, click on it. It is about <a href="http://www.rust-lang.org/">Rust</a>.</p>
+
+<p>Fast forward two hours later, I close the tab which has the wikipedia entry for paella. I can&rsquo;t remember how I got to this page. I can&rsquo;t remember what I was searching for, on google. Lets not dwell in the past, anterograde amnesia isn&rsquo;t cool, although Guy Pearce, in memento, had it. I go back to code editor to retrace my steps. Back on track.</p>
+
+<p>&ldquo;I need a client side router, I wonder if that&rsquo;ll help&rdquo;, I think. Add Backbone to Bower and figure out how to use it with React. One google search later, I have it up and running.</p>
+
+<p>Now, I have all components loaded at the root url load, and the client side router redirects appropriately. Remove the conditional <code>ContentType</code> checks on the server, and have it send resource data in JSON only.</p>
+
+<p>Backbone now works only with the &ldquo;<a href="http://localhost/MI9Base/#/gadgets">http://localhost/MI9Base/#/gadgets</a>&rdquo; hashbang urls. Add pushState to the router, and it removes the hash. It still needs the anchor links and request URLs to be of the hashbang format, but once the Backbone router does its job, the URL is changed to the standard one. So, a refresh on the routed page gives me a 404.</p>
+
+<p>This wont do. I have to load the correct page without the hash.</p>
+
+<p>After lunch, I log back into my workstation. Refresh the page, gives me a 404.</p>
+
+<p>This wont do. I have to load the correct page without the hash. Deja vu?</p>
+
+<p>Another cheat comes to mind, how bad is it? I don&rsquo;t know, I decide to implement it anyway.</p>
+
+<p>Now, all direct requests (without the # in the URL) are sent to the server, the server redirects to the hashbang URL, which the backbone router understands and once again redirects to the correct page. Only if the server gets a <code>ContentType</code> of <code>application/json</code>, it sends the JSON data. Otherwise, redirect and let Backbone handle it.</p>
+
+<p>Two redirects to open one URL? Granted one of them was done on the client, and must have been a lot faster.</p>
+
+<p>I don&rsquo;t know if this is a good way to do things. I think I have cheated multiple times in the process.</p>
+
+<p>I feel dirty. I am not resting well.</p>
+</div>
+
+
+</article>
+
+
+        <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://unknownprogrammer.com/blog/2014/08/14/restless/" data-via="AbhinavRJha" data-counturl="http://unknownprogrammer.com/blog/2014/08/14/restless/" >Tweet</a>
+  
+  
+  
+</div>
+
+
+
+
+
+    			</div>
+    			<footer id="footer">
+    				<p class="credit">
+Copyright &copy; 2014 - Abhinav Jha. Powered by <a href="http://octopress.org">Octopress</a>. Theme <a href="https://github.com/ConnorAtherton/OctoPanel">OctoPanel</a>
+</p>
+
+
+    			</footer>
+    			
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+<link href='http://fonts.googleapis.com/css?family=Quattrocento+Sans|Roboto:400,300' rel='stylesheet' type='text/css'>
+
+
+
+
+
+    		</div>
+    	</section>
+  	</div>
+</body>
+</html>
