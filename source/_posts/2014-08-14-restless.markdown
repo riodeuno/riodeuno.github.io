@@ -1,0 +1,75 @@
+---
+layout: post
+title: "Restless"
+date: 2014-08-14 16:08:04 +0530
+comments: true
+sharing: true
+categories: 
+---
+
+I am not resting well
+
+Creating a website which includes some of the latest client side frameworks AND making it REST-ful does not come easily, to me. I attempt and cheat and cheat some more to make it just REST-ful enough. The fact that it is not a protocol, has helped me keep my conscience after all that cheating. However, I am not resting well.
+
+It all started when I learned about [ReactJS](http://facebook.github.io/react/) last year. I was sure that I would be using this nice and fast framework from the creators of Facebook and Instagram in my next project.
+That is exactly what I did.
+
+My simple project had a [Slim Framework](http://www.slimframework.com/) powered PHP REST API service. [Zurb's Foundation](http://foundation.zurb.com/) for the UI theming/controls (using SASS) and of course, ReactJS.
+
+In my ideal world, the API would be completely REST-ful and the client would work at 60fps on any smartphone, and I would have free beer for life.
+To find my way to this ideal world, I start off by making a few routes which are resources with nouns, for example:
+
+`http://localhost/MI9Base/ejectpads`
+
+`http://localhost/MI9Base/ejectpads/:id`
+
+`http://localhost/MI9Base/agents`
+
+See? No verbs.
+These, for now, spit out a JSON formatted representation of the resource. These, of course, have the standard PUT, POST, DELETE, GET (HTTP requests) way for updating, creating, deleting and getting the resources.
+
+Alright, lets get to the client-side of things.
+
+Fire up a new Foundation project.
+Add React to bower
+
+Have the http://localhost/MI9Base/ load up the homepage (HTML), with the CSS, JS included.
+
+Viewing it in the browser, the homepage loads up. Some of the React components on the homepage request the JSON formatted resources from the server to display.
+
+So far so good.
+
+I need another page for SEO reasons, another URL which can be navigated directly.
+Lets call that http://localhost/MI9Base/gadgets. Here's the tricky part, this URL is also for a resource. So, when I fire up this url in the browser, I get the JSON content displayed (No authenticated resource requests yet). No HTML. 
+
+I think about it for a few minutes, go fishing in my fridge, grab a yoghurt, chat with a friend, come back to my workstation and load the URL again. Yep, still no HTML.
+
+The first solution that comes to mind is to have different `ContentType` in the resource requests. If I request a `applicaiton/json`, the server send back data in JSON, otherwise, it throws another HTML at me, which also has similar JS, CSS as in the homepage.
+
+I find this to be stupid. The server keeps sending the same JS and CSS for each page (There are minor differences in JS for the different React components on different pages). It was stupid, I'm almost certain.
+
+I google around for React JS based applications and their implementations, open some of the search results in new tabs, find a link on reddit, click on it. It is about [Rust](http://www.rust-lang.org/).
+
+Fast forward two hours later, I close the tab which has the wikipedia entry for paella. I can't remember how I got to this page. I can't remember what I was searching for, on google. Lets not dwell in the past, anterograde amnesia isn't cool, although Guy Pearce, in memento, had it. I go back to code editor to retrace my steps. Back on track. 
+
+"I need a client side router, I wonder if that'll help", I think. Add Backbone to Bower and figure out how to use it with React. One google search later, I have it up and running.
+
+Now, I have all components loaded at the root url load, and the client side router redirects appropriately. Remove the conditional `ContentType` checks on the server, and have it send resource data in JSON only.
+
+Backbone now works only with the "http://localhost/MI9Base/#/gadgets" hashbang urls. Add pushState to the router, and it removes the hash. It still needs the anchor links and request URLs to be of the hashbang format, but once the Backbone router does its job, the URL is changed to the standard one. So, a refresh on the routed page gives me a 404.
+
+This wont do. I have to load the correct page without the hash.
+
+After lunch, I log back into my workstation. Refresh the page, gives me a 404.
+
+This wont do. I have to load the correct page without the hash. Deja vu?
+
+Another cheat comes to mind, how bad is it? I don't know, I decide to implement it anyway. 
+
+Now, all direct requests (without the # in the URL) are sent to the server, the server redirects to the hashbang URL, which the backbone router understands and once again redirects to the correct page. Only if the server gets a `ContentType` of `application/json`, it sends the JSON data. Otherwise, redirect and let Backbone handle it. 
+
+Two redirects to open one URL? Granted one of them was done on the client, and must have been a lot faster.
+
+I don't know if this is a good way to do things. I think I have cheated multiple times in the process.
+
+I feel dirty. I am not resting well.
