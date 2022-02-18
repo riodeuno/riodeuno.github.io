@@ -1,2 +1,6 @@
 .sass-cache/
 .themes/
+
+package.json
+node_modules/
+yarn.lock
